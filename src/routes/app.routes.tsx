@@ -21,8 +21,8 @@ export function AppRouters(){
         tabBarInactiveTintColor: theme.colors.text,
         tabBarLabelPosition: 'beside-icon',
         tabBarStyle: {
-          height: 88,
-          paddingVertical: Platform.OS === 'ios' ? 20 : 0,
+          height: 58,
+          // paddingVertical: Platform.OS === 'ios' ? 20 : 0,
         }
       }}
     >

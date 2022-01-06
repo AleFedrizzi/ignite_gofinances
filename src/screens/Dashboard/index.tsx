@@ -159,9 +159,6 @@ function getLastTransactionDate(
   useEffect(() => {
     loadTransactions();
 
-    //Só para limpar a lista quando precisar
-    // const dataKey = '@gofinance:transaction';
-    // AsyncStorage.removeItem(dataKey);
   },[]);
 
   useFocusEffect(useCallback(() => {
