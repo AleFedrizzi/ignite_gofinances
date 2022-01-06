@@ -12,15 +12,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import uuid from "react-native-uuid"
 
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../hooks/auth";
 import { useNavigation } from "@react-navigation/native";
 
 import { InputForm } from "../../components/Form/InputForm";
-
 import { Button } from "../../components/Form/Button";
-import { CategorySelectButton } from "../../components/Form/CategorySelectButton";
 import { TransactionTypeButton } from "../../components/Form/TransactionTypeButton";
-import { CategorySelect } from "../CategorySelect";
+import { CategorySelectButton } from "../../components/Form/CategorySelectButton";
 
+import { CategorySelect } from "../CategorySelect";
 
 import { 
   Container, 
@@ -29,7 +29,6 @@ import {
   Form,
   Fields,
   TransactionTypes,
- 
 } from "./styles";
 
 interface FormData{
@@ -55,6 +54,8 @@ const schema = Yup.object().shape({
 export function Register(){
   const [transactionType, setTransactionType] = useState ('');
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
+
+  const { user } = useAuth();
 
   const [category, setCategory] = useState({
     key: 'category',
@@ -104,7 +105,7 @@ export function Register(){
     }
     
     try {
-      const dataKey = '@gofinance:transaction';
+      const dataKey = `@gofinance:transaction_user:${user.id}`;
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
 
@@ -129,21 +130,6 @@ export function Register(){
       Alert.alert("Não foi possível salvar");
     }
   }
-  // useEffect(() => {
-  //   async function loadData() {
-  //     const data = await AsyncStorage.getItem(dataKey);
-  //     console.log(JSON.parse( data! ));
-  //   }
-
-  //   loadData();
-
-    // async function removeAll() {
-    //   await AsyncStorage.removeItem(dataKey);
-    // }
-  
-
-    // removeAll();
-  // }, []);
 
   return(
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
